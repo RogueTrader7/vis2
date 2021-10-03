@@ -1,0 +1,153 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": { "text": "Proportion of long term conditions in persons 15 and above (%)- 2017-2018" },
+  "params": [
+    {
+      "name": "Population_Above",
+      "value": 0,
+      "bind": {
+      "input": "range",
+      "min": 0,
+      "max": 20,
+      "step": 0.1,
+      "name": "Range of proportion: "
+ }
+ },
+
+    {
+    "name": "condition_selection",
+    "bind": {
+    "input": "select",
+    "options": [
+    null,
+    "Arthritis",
+    "Asthma",
+    "Back problems",
+    "Cancer",
+    "Chronic pulmonary disease",
+    "Diabetes mellitus",
+    "Hayfever and allergic rhinitis",
+    "Heart stroke and vascular disease",
+    "Hypertension",
+    "Kidney disease",
+    "Mental and behavioural conditions",
+    "Osteoporosis"
+    ],
+    "labels":[
+    "Show All",
+    "Arthritis",
+    "Asthma",
+    "Back problems",
+    "Cancer",
+    "Chronic pulmonary disease",
+    "Diabetes mellitus",
+    "Hayfever and allergic rhinitis",
+    "Heart stroke and vascular disease",
+    "Hypertension",
+    "Kidney disease",
+    "Mental and behavioural conditions",
+    "Osteoporosis"
+    ],
+    "name": "condition Selection: "
+    }
+    }
+    ],
+    
+    "transform": [
+       {"filter": "datum.Australia > 0"},
+       {"filter": "datum.Australia > 0"},
+       {"filter": "datum.Australia > Population_Above"},
+       {"filter": "condition_selection == null || datum.longterm_conditions == condition_selection"}
+       ],
+       
+  "width": 300,
+  "height": 150,
+  "padding": 20,
+"data": {
+  "url": "https://raw.githubusercontent.com/RogueTrader7/vis2/main/bar.csv"
+  },
+  "mark": "bar",
+  "encoding": {
+  "x": { "field": "Australia", "type": "quantitative" },
+  "y": { "field": "longterm_conditions", "type": "nominal" },
+  "tooltip":[{"field": "Australia", "type": "quantitative"}]
+  
+
+  },
+  "layer": [
+    {
+      "mark": "bar"
+    },
+    {
+        "mark": {
+            "type": "text",
+            "align": "right",
+            "baseline": "middle",
+            "dx": -12,
+            "fontSize": 11.5,
+            "fontStyle": "italic"
+            },
+      "encoding": {
+        "text": {
+          "field": "longterm_condition",
+          "type": "nominal",
+          "condition": {
+            "test": "datum['longterm_condition'] == 'Mental and behavioural conditions'",
+            "value": [
+              "conditions like anxiety, depression and other conditions disrupting mental well being",
+              " identified most amongst Australians as long term conditions."
+            ]
+          }
+        },
+        "opacity": {
+          "condition": {
+            "test": "datum['longterm_condition'] == 'Mental and behavioural conditions'",
+            "value": 1
+          },
+          "value": 0
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 10
+      },
+      "encoding": {
+        "text": {
+          "field": "longterm_condition",
+          "type": "nominal",
+          "condition": {
+            "test": "datum['longterm_condition'] == 'Heart, stroke and vascular disease' && datum.Australia == '4.8'",
+            "value": [
+              "Ischaemic heart disease is the leading single cause of ",
+              "disease burden and death in Australia"
+            ]
+          }
+        },
+        "opacity": {
+          "condition": {
+            "test": "datum['longterm_condition'] == 'Heart, stroke and vascular disease' && datum.Australia == '4.8'",
+            "value": 1
+          },
+          "value": 0
+        }}
+      }
+    ]
+    }
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
